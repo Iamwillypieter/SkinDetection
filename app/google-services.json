@@ -1,0 +1,47 @@
+{
+  "project_info": {
+    "project_number": "217747133123",
+    "project_id": "skindetection-3cfb7",
+    "storage_bucket": "skindetection-3cfb7.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:217747133123:android:290d78cdcf2183b5f30876",
+        "android_client_info": {
+          "package_name": "com.example.skindetection"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "217747133123-5ksnh9aokmdhcptco66fu7909bq48lmd.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.skindetection",
+            "certificate_hash": "1e1a1550919349330e7978e79c5e0676032f4940"
+          }
+        },
+        {
+          "client_id": "217747133123-e1i8gsbv78chi41or6uuc5s09njtlna0.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDb6W0G0m9DZK58JF2ujIXMRHijL0LZkcM"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "217747133123-e1i8gsbv78chi41or6uuc5s09njtlna0.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
