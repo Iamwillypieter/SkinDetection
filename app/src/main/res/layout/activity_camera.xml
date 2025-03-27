@@ -1,0 +1,90 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/primary"
+    tools:context=".camera.CameraActivity">
+
+  <ImageButton
+      android:id="@+id/button_back_camera"
+      android:layout_width="50dp"
+      android:layout_height="50dp"
+      android:src="@drawable/ic_back"
+      android:background="@null"
+      android:layout_alignParentStart="true"
+      android:layout_margin="16dp"
+      tools:ignore="MissingConstraints" />
+
+  <TextView
+      android:id="@+id/tvTitle"
+      android:layout_width="wrap_content"
+      android:layout_height="wrap_content"
+      android:text="@string/welcome_camera"
+      android:textColor="@color/black"
+      android:textSize="20sp"
+      android:textStyle="bold"
+      app:layout_constraintEnd_toEndOf="parent"
+      app:layout_constraintStart_toStartOf="parent"
+      app:layout_constraintTop_toBottomOf="@+id/button_back" />
+
+  <ImageView
+      android:id="@+id/previewImageView"
+      android:layout_width="250dp"
+      android:layout_height="250dp"
+      android:src="@drawable/scanner"
+      android:scaleType="fitCenter"
+      app:layout_constraintTop_toBottomOf="@id/tvTitle"
+      app:layout_constraintStart_toStartOf="parent"
+      app:layout_constraintEnd_toEndOf="parent"
+      android:layout_marginTop="16dp"/>
+
+  <!-- Deskripsi -->
+  <TextView
+      android:id="@+id/tvDescription"
+      android:layout_width="300dp"
+      android:layout_height="wrap_content"
+      android:text="@string/text_camera"
+      android:textSize="16sp"
+      android:textColor="@color/black"
+      android:textAlignment="center"
+      app:layout_constraintTop_toBottomOf="@id/previewImageView"
+      app:layout_constraintStart_toStartOf="parent"
+      app:layout_constraintEnd_toEndOf="parent"
+      android:layout_marginTop="8dp"/>
+
+
+  <!-- Tombol Upload -->
+  <Button
+      android:id="@+id/btnUpload"
+      android:layout_width="0dp"
+      android:layout_height="50dp"
+      android:layout_margin="16dp"
+      android:backgroundTint="@color/green"
+      android:drawableLeft="@drawable/ic_upload"
+      android:gravity="center"
+      android:text="@string/gallery"
+      android:textColor="@color/white"
+      app:layout_constraintBottom_toBottomOf="parent"
+      app:layout_constraintEnd_toStartOf="@id/btnTakePicture"
+      app:layout_constraintStart_toStartOf="parent"
+      app:layout_constraintTop_toBottomOf="@+id/tvDescription" />
+
+  <!-- Tombol Kamera -->
+  <Button
+      android:id="@+id/btnTakePicture"
+      android:layout_width="0dp"
+      android:layout_height="50dp"
+      android:layout_margin="16dp"
+      android:backgroundTint="@color/green"
+      android:drawableLeft="@drawable/ic_scan"
+      android:gravity="center"
+      android:text="Take Picture"
+      android:textColor="@color/white"
+      app:layout_constraintBottom_toBottomOf="parent"
+      app:layout_constraintEnd_toEndOf="parent"
+      app:layout_constraintStart_toEndOf="@id/btnUpload"
+      app:layout_constraintTop_toBottomOf="@+id/tvDescription" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>

@@ -1,0 +1,25 @@
+<resources>
+    <string name="app_name">Skin Detection</string>
+    <string name="say_hello">Hello, Lola</string>
+    <string name="view_results">View Results</string>
+    <string name="text_scan">Your Scans</string>
+    <string name="welcome_camera">Welcome to Skintec</string>
+    <string name="text_camera">Take picture of your disease to know how to cure that</string>
+    <string name="gallery">Gallery</string>
+    <string name="user_profile">User Profile</string>
+    <string name="username">Username</string>
+    <string name="user_email">email@example.com</string>
+    <string name="edit_profil">Edit Profil</string>
+    <string name="text_splash">Detect Your Skin Desease</string>
+    <string name="text_about">Welcome To SkinTech</string>
+    <string name="about_description">This is the About page of the app. Here you can see our Mission, Vision, and Core Value. And then you can find our contact below and ask us to know what is your problem</string>
+    <string name="mission">Mission</string>
+    <string name="vision">Vision</string>
+    <string name="text_mission">Our mission is to educate and empower individuals about skin health, providing them with resources and support to manage and understand skin conditions effectively.</string>
+    <string name="text_vision">Our vision is to be a leading resource in the field of skin health, driving awareness and understanding of skin conditions across diverse communities.</string>
+    <string name="text_core">We believe in the power of knowledge. Educating our users about skin health allows them to make informed decisions.</string>
+    <string name="contact_us">Contact Us</string>
+    <string name="instagram">Instagram</string>
+    <string name="whatsapp">WhatsApp</string>
+    <string name="facebook">Facebook</string>
+</resources>
