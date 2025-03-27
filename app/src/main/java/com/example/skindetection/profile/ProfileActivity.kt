@@ -7,6 +7,8 @@ import android.view.View
 import android.widget.Toast
 import com.example.skindetection.databinding.ActivityProfileBinding
 import com.example.skindetection.home.HomeActivity
+import com.example.skindetection.user.LoginActivity
+import com.google.firebase.auth.FirebaseAuth
 
 class ProfileActivity : AppCompatActivity() {
     private lateinit var binding: ActivityProfileBinding
@@ -42,6 +44,16 @@ class ProfileActivity : AppCompatActivity() {
     }
 
     fun onLogoutClicked(view: View) {
-        Toast.makeText(this, "Logging out...", Toast.LENGTH_SHORT).show()
+        // Menangani proses logout
+        FirebaseAuth.getInstance().signOut() // Logout dari Firebase
+
+        // Arahkan pengguna kembali ke halaman login
+        val intent = Intent(this, LoginActivity::class.java) // Ganti 'LoginActivity' dengan nama activity login kamu
+        intent.flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK // Menghapus semua activity sebelumnya
+        startActivity(intent)
+
+        // Tampilkan toast
+        Toast.makeText(this, "Logged out successfully", Toast.LENGTH_SHORT).show()
+        finish()
     }
 }
