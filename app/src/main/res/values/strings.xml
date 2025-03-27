@@ -22,4 +22,8 @@
     <string name="instagram">Instagram</string>
     <string name="whatsapp">WhatsApp</string>
     <string name="facebook">Facebook</string>
+    <string name="verified">VERIFIED</string>
+    <string name="save_changes">Save Changes</string>
+    <string name="email">Email</string>
+    <string name="phone_number">Phone Number</string>
 </resources>

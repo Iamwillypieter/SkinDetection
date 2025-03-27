@@ -27,7 +27,8 @@ class ProfileActivity : AppCompatActivity() {
 
         // Tombol Edit Profil
         binding.buttonEditProfile.setOnClickListener {
-            Toast.makeText(this, "Edit Profile clicked", Toast.LENGTH_SHORT).show()
+            val intent = Intent(this, EditActivity::class.java)
+            startActivity(intent)
         }
     }
 
