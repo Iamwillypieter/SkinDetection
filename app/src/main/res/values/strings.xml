@@ -43,4 +43,5 @@
     <string name="already_have_account">Already Have Account?</string>
     <string name="register">Register</string>
     <string name="confirm_password">Confirm Password</string>
+    <string name="main_text">WELCOME TO SKINTECH</string>
 </resources>

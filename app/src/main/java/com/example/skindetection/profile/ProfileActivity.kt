@@ -5,21 +5,32 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.View
 import android.widget.Toast
+import com.bumptech.glide.Glide
 import com.example.skindetection.databinding.ActivityProfileBinding
 import com.example.skindetection.home.HomeActivity
 import com.example.skindetection.user.LoginActivity
 import com.google.firebase.auth.FirebaseAuth
+import com.google.firebase.firestore.FirebaseFirestore
 
 class ProfileActivity : AppCompatActivity() {
     private lateinit var binding: ActivityProfileBinding
+    private lateinit var auth: FirebaseAuth
+    private lateinit var db: FirebaseFirestore
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityProfileBinding.inflate(layoutInflater) // Perbaikan binding
         setContentView(binding.root)
 
-        binding.textUserName.text = "Willy Pieter Julius Situmorang"
-        binding.textUserEmail.text = "willy@example.com"
+//        binding.textUserName.text = "Willy Pieter Julius Situmorang"
+//        binding.textUserEmail.text = "willy@example.com"
+
+        // Inisialisasi Firebase
+        auth = FirebaseAuth.getInstance()
+        db = FirebaseFirestore.getInstance()
+
+        // Ambil Data dari Firestore
+        getUserData()
 
         binding.buttonBackProfile.setOnClickListener {
             val intent = Intent(this, HomeActivity::class.java)
@@ -33,6 +44,39 @@ class ProfileActivity : AppCompatActivity() {
             startActivity(intent)
         }
     }
+
+    private fun getUserData() {
+        val user = auth.currentUser
+        if (user != null) {
+            val userId = user.uid
+
+            db.collection("users").document(userId).get()
+                .addOnSuccessListener { document ->
+                    if (document.exists()) {
+                        val email = document.getString("email") ?: "Email not available"
+                        val username = document.getString("username") ?: "Username not available"
+                        val profileImageUrl = document.getString("profileImageUrl") ?: ""
+
+                        // Menampilkan data di TextView
+                        binding.textUserEmail.text = email
+                        binding.textUserName.text = username
+
+                        // Menampilkan foto profil jika ada
+                        if (profileImageUrl.isNotEmpty()) {
+                            Glide.with(this)
+                                .load(profileImageUrl)
+                                .into(binding.profileImage)
+                        }
+                    } else {
+                        Toast.makeText(this, "Data user not found", Toast.LENGTH_SHORT).show()
+                    }
+                }
+                .addOnFailureListener { e ->
+                    Toast.makeText(this, "Failed to fetch data: ${e.message}", Toast.LENGTH_SHORT).show()
+                }
+        }
+    }
+
 
     fun onAboutUsClicked(view: View) {
         val intent = Intent(this, AboutActivity::class.java)
