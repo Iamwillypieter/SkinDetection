@@ -4,6 +4,7 @@ import android.content.Intent
 import android.os.Bundle
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
+import com.example.skindetection.article.ArticleActivity
 import com.example.skindetection.camera.CameraActivity
 import com.example.skindetection.databinding.ActivityHomeBinding
 import com.example.skindetection.profile.ProfileActivity
@@ -44,6 +45,24 @@ class HomeActivity : AppCompatActivity() {
             val intent = Intent(this, ProfileActivity::class.java)
             startActivity(intent)
         }
+
+        binding.homeCard1.setOnClickListener {
+            openArticle("Judul Artikel 1", "Isi artikel pertama yang panjang...")
+        }
+
+        binding.homeCard2.setOnClickListener {
+            openArticle("Judul Artikel 2", "Isi artikel kedua yang menarik...")
+        }
+
+        binding.homeCard3.setOnClickListener {
+            openArticle("Judul Artikel 3", "Isi artikel ketiga yang seru...")
+        }
+        binding.homeCard4.setOnClickListener {
+            openArticle("Judul Artikel 3", "Isi artikel ketiga yang seru...")
+        }
+        binding.homeCard5.setOnClickListener {
+            openArticle("Judul Artikel 3", "Isi artikel ketiga yang seru...")
+        }
     }
 
     private fun getUsername() {
@@ -62,5 +81,12 @@ class HomeActivity : AppCompatActivity() {
                     Toast.makeText(this, "Failed to fetch username: ${e.message}", Toast.LENGTH_SHORT).show()
                 }
         }
+    }
+
+    private fun openArticle(title: String, content: String) {
+        val intent = Intent(this, ArticleActivity::class.java)
+        intent.putExtra("TITLE", title)
+        intent.putExtra("CONTENT", content)
+        startActivity(intent)
     }
 }
