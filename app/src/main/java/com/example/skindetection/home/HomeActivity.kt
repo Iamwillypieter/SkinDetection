@@ -4,6 +4,10 @@ import android.content.Intent
 import android.os.Bundle
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
+import androidx.recyclerview.widget.LinearLayoutManager
+import com.example.skindetection.R
+import com.example.skindetection.adapter.ArticleAdapter
+import com.example.skindetection.article.Article
 import com.example.skindetection.article.ArticleActivity
 import com.example.skindetection.camera.CameraActivity
 import com.example.skindetection.databinding.ActivityHomeBinding
@@ -46,23 +50,8 @@ class HomeActivity : AppCompatActivity() {
             startActivity(intent)
         }
 
-        binding.homeCard1.setOnClickListener {
-            openArticle("Judul Artikel 1", "Isi artikel pertama yang panjang...")
-        }
-
-        binding.homeCard2.setOnClickListener {
-            openArticle("Judul Artikel 2", "Isi artikel kedua yang menarik...")
-        }
-
-        binding.homeCard3.setOnClickListener {
-            openArticle("Judul Artikel 3", "Isi artikel ketiga yang seru...")
-        }
-        binding.homeCard4.setOnClickListener {
-            openArticle("Judul Artikel 3", "Isi artikel ketiga yang seru...")
-        }
-        binding.homeCard5.setOnClickListener {
-            openArticle("Judul Artikel 3", "Isi artikel ketiga yang seru...")
-        }
+        // Inisialisasi RecyclerView Artikel
+        setupArticleRecyclerView()
     }
 
     private fun getUsername() {
@@ -83,10 +72,28 @@ class HomeActivity : AppCompatActivity() {
         }
     }
 
-    private fun openArticle(title: String, content: String) {
+    private fun setupArticleRecyclerView() {
+        val articles = listOf(
+            Article(R.drawable.jerawat, "Jerawat", "Gangguan kulit akibat pori-pori tersumbat."),
+            Article(R.drawable.dermatitis, "Dermatitis", "Peradangan kulit yang menyebabkan gatal."),
+            Article(R.drawable.melanoma, "Melanoma", "Jenis kanker kulit yang paling berbahaya."),
+            Article(R.drawable.skabies, "Skabies", "Infeksi kulit akibat tungau yang menyebabkan gatal."),
+        )
+
+        val adapter = ArticleAdapter(articles) { article ->
+            openArticle(article)
+        }
+
+        binding.recyclerViewArticles.layoutManager =
+            LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false)
+        binding.recyclerViewArticles.adapter = adapter
+    }
+
+    private fun openArticle(article: Article) {
         val intent = Intent(this, ArticleActivity::class.java)
-        intent.putExtra("TITLE", title)
-        intent.putExtra("CONTENT", content)
+        intent.putExtra("TITLE", article.title)
+        intent.putExtra("CONTENT", article.description)
+        intent.putExtra("IMAGE", article.imageResId)
         startActivity(intent)
     }
 }

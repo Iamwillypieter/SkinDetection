@@ -14,8 +14,10 @@ class ArticleActivity : AppCompatActivity() {
 
         val title = intent.getStringExtra("TITLE")
         val content = intent.getStringExtra("CONTENT")
+        val imageResId = intent.getIntExtra("IMAGE", 0)
 
         binding.articleTitle.text = title
         binding.articleContent.text = content
+        binding.articleImage.setImageResource(imageResId)
     }
 }
