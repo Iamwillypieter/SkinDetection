@@ -33,6 +33,19 @@ class HomeActivity : AppCompatActivity() {
     private lateinit var auth: FirebaseAuth
     private lateinit var db: FirebaseFirestore
 
+    private fun saveImagePath(path: String) {
+        val prefs = getSharedPreferences("scan_history", MODE_PRIVATE)
+        val paths = prefs.getStringSet("image_paths", mutableSetOf())?.toMutableSet() ?: mutableSetOf()
+        paths.add(path)
+        prefs.edit().putStringSet("image_paths", paths).apply()
+    }
+
+    private fun getSavedImagePaths(): Set<String> {
+        val prefs = getSharedPreferences("scan_history", MODE_PRIVATE)
+        return prefs.getStringSet("image_paths", emptySet()) ?: emptySet()
+    }
+
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
@@ -65,27 +78,31 @@ class HomeActivity : AppCompatActivity() {
         // Inisialisasi RecyclerView Artikel
         setupArticleRecyclerView()
 
+        // Ambil image path terbaru dari intent
         val imagePath = intent.getStringExtra("image_path")
         if (!imagePath.isNullOrEmpty()) {
-            if (imagePath.startsWith("content://")) {
-                // Gambar dari galeri
-                val imageUri = Uri.parse(imagePath)
-                val inputStream = contentResolver.openInputStream(imageUri)
-                val bitmap = BitmapFactory.decodeStream(inputStream)
-                inputStream?.close()
-                if (bitmap != null) {
-                    addCardToYourScans(bitmap)
-                }
-            } else {
-                // Gambar dari kamera
-                val file = File(imagePath)
-                if (file.exists()) {
-                    val bitmap = BitmapFactory.decodeFile(file.absolutePath)
-                    addCardToYourScans(bitmap)
-                }
-            }
+            saveImagePath(imagePath) // Simpan ke history
         }
 
+        // Tampilkan semua gambar yang tersimpan
+        getSavedImagePaths().forEach { path ->
+            try {
+                val bitmap: Bitmap? = if (path.startsWith("content://")) {
+                    val uri = Uri.parse(path)
+                    contentResolver.openInputStream(uri)?.use { input ->
+                        BitmapFactory.decodeStream(input)
+                    }
+                } else {
+                    val file = File(path)
+                    if (file.exists()) BitmapFactory.decodeFile(file.absolutePath) else null
+                }
+
+                bitmap?.let { addCardToYourScans(it) }
+
+            } catch (e: Exception) {
+                e.printStackTrace()
+            }
+        }
     }
 
     private fun addCardToYourScans(bitmap: Bitmap) {
