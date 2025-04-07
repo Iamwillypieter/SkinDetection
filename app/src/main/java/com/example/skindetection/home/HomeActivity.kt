@@ -1,20 +1,9 @@
 package com.example.skindetection.home
 
 import android.content.Intent
-import android.content.res.Resources
-import android.graphics.Bitmap
-import android.graphics.BitmapFactory
-import android.graphics.Color
-import android.net.Uri
 import android.os.Bundle
-import android.view.Gravity
-import android.widget.Button
-import android.widget.ImageView
-import android.widget.LinearLayout
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
-import androidx.cardview.widget.CardView
-import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.skindetection.R
 import com.example.skindetection.adapter.ArticleAdapter
@@ -25,26 +14,14 @@ import com.example.skindetection.databinding.ActivityHomeBinding
 import com.example.skindetection.profile.ProfileActivity
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.FirebaseFirestore
-import java.io.File
+import com.example.skindetection.utils.saveImagePath
+import com.example.skindetection.utils.loadSavedImages
 
 class HomeActivity : AppCompatActivity() {
 
     private lateinit var binding: ActivityHomeBinding
     private lateinit var auth: FirebaseAuth
     private lateinit var db: FirebaseFirestore
-
-    private fun saveImagePath(path: String) {
-        val prefs = getSharedPreferences("scan_history", MODE_PRIVATE)
-        val paths = prefs.getStringSet("image_paths", mutableSetOf())?.toMutableSet() ?: mutableSetOf()
-        paths.add(path)
-        prefs.edit().putStringSet("image_paths", paths).apply()
-    }
-
-    private fun getSavedImagePaths(): Set<String> {
-        val prefs = getSharedPreferences("scan_history", MODE_PRIVATE)
-        return prefs.getStringSet("image_paths", emptySet()) ?: emptySet()
-    }
-
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -81,70 +58,12 @@ class HomeActivity : AppCompatActivity() {
         // Ambil image path terbaru dari intent
         val imagePath = intent.getStringExtra("image_path")
         if (!imagePath.isNullOrEmpty()) {
-            saveImagePath(imagePath) // Simpan ke history
+            saveImagePath(this, imagePath)
         }
 
-        // Tampilkan semua gambar yang tersimpan
-        getSavedImagePaths().forEach { path ->
-            try {
-                val bitmap: Bitmap? = if (path.startsWith("content://")) {
-                    val uri = Uri.parse(path)
-                    contentResolver.openInputStream(uri)?.use { input ->
-                        BitmapFactory.decodeStream(input)
-                    }
-                } else {
-                    val file = File(path)
-                    if (file.exists()) BitmapFactory.decodeFile(file.absolutePath) else null
-                }
+    // Tampilkan gambar-gambar hasil scan sebelumnya
+        loadSavedImages(this, binding.scanCardContainer)
 
-                bitmap?.let { addCardToYourScans(it) }
-
-            } catch (e: Exception) {
-                e.printStackTrace()
-            }
-        }
-    }
-
-    private fun addCardToYourScans(bitmap: Bitmap) {
-        val cardView = CardView(this).apply {
-            layoutParams = LinearLayout.LayoutParams(160.dpToPx(), LinearLayout.LayoutParams.WRAP_CONTENT).apply {
-                marginEnd = 12.dpToPx()
-            }
-            radius = 12f
-            cardElevation = 6f
-        }
-
-        val imageView = ImageView(this).apply {
-            layoutParams = LinearLayout.LayoutParams(
-                LinearLayout.LayoutParams.MATCH_PARENT, 200.dpToPx()
-            )
-            scaleType = ImageView.ScaleType.CENTER_CROP
-            setImageBitmap(bitmap)
-        }
-
-        val button = Button(this).apply {
-            layoutParams = LinearLayout.LayoutParams(
-                LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.WRAP_CONTENT
-            )
-            text = "View Result"
-            setTextColor(Color.WHITE)
-            backgroundTintList = ContextCompat.getColorStateList(context, R.color.colorPrimary)
-        }
-
-        val layout = LinearLayout(this).apply {
-            orientation = LinearLayout.VERTICAL
-            gravity = Gravity.CENTER
-            addView(imageView)
-            addView(button)
-        }
-
-        cardView.addView(layout)
-        binding.scanCardContainer.addView(cardView)
-    }
-
-    // Fungsi dp ke px
-    private fun Int.dpToPx(): Int {
-        return (this * Resources.getSystem().displayMetrics.density).toInt()
     }
 
     private fun getUsername() {
