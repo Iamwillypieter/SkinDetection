@@ -1,9 +1,20 @@
 package com.example.skindetection.home
 
 import android.content.Intent
+import android.content.res.Resources
+import android.graphics.Bitmap
+import android.graphics.BitmapFactory
+import android.graphics.Color
+import android.net.Uri
 import android.os.Bundle
+import android.view.Gravity
+import android.widget.Button
+import android.widget.ImageView
+import android.widget.LinearLayout
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
+import androidx.cardview.widget.CardView
+import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.skindetection.R
 import com.example.skindetection.adapter.ArticleAdapter
@@ -14,6 +25,7 @@ import com.example.skindetection.databinding.ActivityHomeBinding
 import com.example.skindetection.profile.ProfileActivity
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.FirebaseFirestore
+import java.io.File
 
 class HomeActivity : AppCompatActivity() {
 
@@ -52,6 +64,70 @@ class HomeActivity : AppCompatActivity() {
 
         // Inisialisasi RecyclerView Artikel
         setupArticleRecyclerView()
+
+        val imagePath = intent.getStringExtra("image_path")
+        if (!imagePath.isNullOrEmpty()) {
+            if (imagePath.startsWith("content://")) {
+                // Gambar dari galeri
+                val imageUri = Uri.parse(imagePath)
+                val inputStream = contentResolver.openInputStream(imageUri)
+                val bitmap = BitmapFactory.decodeStream(inputStream)
+                inputStream?.close()
+                if (bitmap != null) {
+                    addCardToYourScans(bitmap)
+                }
+            } else {
+                // Gambar dari kamera
+                val file = File(imagePath)
+                if (file.exists()) {
+                    val bitmap = BitmapFactory.decodeFile(file.absolutePath)
+                    addCardToYourScans(bitmap)
+                }
+            }
+        }
+
+    }
+
+    private fun addCardToYourScans(bitmap: Bitmap) {
+        val cardView = CardView(this).apply {
+            layoutParams = LinearLayout.LayoutParams(160.dpToPx(), LinearLayout.LayoutParams.WRAP_CONTENT).apply {
+                marginEnd = 12.dpToPx()
+            }
+            radius = 12f
+            cardElevation = 6f
+        }
+
+        val imageView = ImageView(this).apply {
+            layoutParams = LinearLayout.LayoutParams(
+                LinearLayout.LayoutParams.MATCH_PARENT, 200.dpToPx()
+            )
+            scaleType = ImageView.ScaleType.CENTER_CROP
+            setImageBitmap(bitmap)
+        }
+
+        val button = Button(this).apply {
+            layoutParams = LinearLayout.LayoutParams(
+                LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.WRAP_CONTENT
+            )
+            text = "View Result"
+            setTextColor(Color.WHITE)
+            backgroundTintList = ContextCompat.getColorStateList(context, R.color.colorPrimary)
+        }
+
+        val layout = LinearLayout(this).apply {
+            orientation = LinearLayout.VERTICAL
+            gravity = Gravity.CENTER
+            addView(imageView)
+            addView(button)
+        }
+
+        cardView.addView(layout)
+        binding.scanCardContainer.addView(cardView)
+    }
+
+    // Fungsi dp ke px
+    private fun Int.dpToPx(): Int {
+        return (this * Resources.getSystem().displayMetrics.density).toInt()
     }
 
     private fun getUsername() {
