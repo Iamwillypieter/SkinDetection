@@ -74,10 +74,10 @@ class HomeActivity : AppCompatActivity() {
 
     private fun setupArticleRecyclerView() {
         val articles = listOf(
-            Article(R.drawable.jerawat, "Jerawat", "Gangguan kulit akibat pori-pori tersumbat."),
-            Article(R.drawable.dermatitis, "Dermatitis", "Peradangan kulit yang menyebabkan gatal."),
-            Article(R.drawable.melanoma, "Melanoma", "Jenis kanker kulit yang paling berbahaya."),
-            Article(R.drawable.skabies, "Skabies", "Infeksi kulit akibat tungau yang menyebabkan gatal."),
+            Article(R.drawable.jerawat, "Jerawat", "Jerawat adalah masalah kulit yang umum, terjadi saat folikel rambut tersumbat oleh minyak dan sel kulit mati, menyebabkan peradangan dan munculnya benjolan seperti komedo, papul, kista, atau pustula."),
+            Article(R.drawable.dermatitis, "Dermatitis", "Dermatitis adalah peradangan kulit yang ditandai dengan ruam, kemerahan, gatal, dan kulit kering. Dermatitis bisa disebabkan oleh berbagai faktor, seperti alergi, genetik, atau paparan zat tertentu. Dermatitis bisa menyerang siapa saja, termasuk bayi."),
+            Article(R.drawable.melanoma, "Melanoma", "Melanoma adalah jenis kanker kulit yang sangat serius, berkembang dari sel melanosit (sel yang memproduksi pigmen melanin yang memberi warna pada kulit) dan dapat menyebar ke organ lain."),
+            Article(R.drawable.skabies, "Skabies", "Skabies atau kudis adalah penyakit kulit yang disebabkan oleh tungau kecil bernama Sarcoptes scabiei. Tungau ini menggali terowongan di bawah kulit sehingga menimbulkan rasa gatal yang sangat kuat, terutama di malam hari."),
         )
 
         val adapter = ArticleAdapter(articles) { article ->

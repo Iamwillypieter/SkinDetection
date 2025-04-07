@@ -25,9 +25,10 @@
       android:textColor="@color/black"
       android:textSize="20sp"
       android:textStyle="bold"
+      android:paddingTop="10dp"
       app:layout_constraintEnd_toEndOf="parent"
       app:layout_constraintStart_toStartOf="parent"
-      app:layout_constraintTop_toBottomOf="@+id/button_back" />
+      tools:ignore="MissingConstraints" />
 
   <ImageView
       android:id="@+id/previewImageView"
@@ -55,7 +56,21 @@
       android:layout_marginTop="8dp"/>
 
 
-  <!-- Tombol Upload -->
+  <!-- Tombol Process -->
+  <Button
+      android:id="@+id/btnProcess"
+      android:layout_width="wrap_content"
+      android:layout_height="wrap_content"
+      android:text="@string/process"
+      android:textColor="@color/white"
+      android:backgroundTint="@color/green"
+      android:layout_marginTop="50dp"
+      app:layout_constraintTop_toBottomOf="@id/tvDescription"
+      app:layout_constraintStart_toStartOf="parent"
+      app:layout_constraintEnd_toEndOf="parent"/>
+
+
+  <!-- Tombol Upload dari camera dan gallery -->
   <Button
       android:id="@+id/btnUpload"
       android:layout_width="0dp"
