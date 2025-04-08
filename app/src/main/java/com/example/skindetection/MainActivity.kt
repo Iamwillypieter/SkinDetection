@@ -16,22 +16,22 @@ class MainActivity : AppCompatActivity() {
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
-//        // Set OnClickListener untuk tombol Register
-//        binding.btnRegister.setOnClickListener {
-//            // Pindah ke RegisterActivity
-//            val intent = Intent(this, RegisterActivity::class.java)
-//            startActivity(intent)
-//        }
-//
-//        // Set OnClickListener untuk tombol Login
-//        binding.btnLogin.setOnClickListener {
-//            // Pindah ke LoginActivity
-//            val intent = Intent(this, LoginActivity::class.java)
-//            startActivity(intent)
-//        }
+        // Set OnClickListener untuk tombol Register
+        binding.btnRegister.setOnClickListener {
+            // Pindah ke RegisterActivity
+            val intent = Intent(this, RegisterActivity::class.java)
+            startActivity(intent)
+        }
 
-        val intent = Intent(this, HomeActivity::class.java)
-        startActivity(intent)
-        finish()
+        // Set OnClickListener untuk tombol Login
+        binding.btnLogin.setOnClickListener {
+            // Pindah ke LoginActivity
+            val intent = Intent(this, LoginActivity::class.java)
+            startActivity(intent)
+        }
+
+//        val intent = Intent(this, HomeActivity::class.java)
+//        startActivity(intent)
+//        finish()
     }
 }
