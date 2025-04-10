@@ -46,4 +46,16 @@
     <string name="main_text">WELCOME TO SKINTECH</string>
     <string name="article">Article</string>
     <string name="process">Process</string>
+    <string name="CEO">About Founder</string>
+    <string name="description_ceo">My Name is Willy Pieter Julius Situmorang. I was 21 Years Old, who lives in Medan, Indonesia. My Habby is Playing Football and Music. And This is my Project to my last task to graduate from my college. I build this with my friends. And my task was make this application, and the report. I like Technology when i was a child, i playing computer in Internet Cafes. Cuz of that i coming to be a student of informatics.</string>
+    <string name="history">History</string>
+    <string name="height">172 cm</string>
+    <string name="heights">Height</string>
+    <string name="old">21</string>
+    <string name="age">Age</string>
+    <string name="universitas_mikroskil">Universitas Mikroskil</string>
+    <string name="college">College</string>
+    <string name="teams">Teams</string>
+    <string name="_3">3</string>
+    <string name="text_support">Support and Connect with me</string>
 </resources>

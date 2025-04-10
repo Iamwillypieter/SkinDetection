@@ -117,9 +117,8 @@
             android:src="@drawable/ic_arrow_right" />
     </LinearLayout>
 
-    <!-- Donation -->
     <LinearLayout
-        android:id="@+id/linearLayout2"
+        android:id="@+id/ceo"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:background="@drawable/bg_rounded"
@@ -137,14 +136,14 @@
         <ImageView
             android:layout_width="24dp"
             android:layout_height="24dp"
-            android:src="@drawable/ic_donation" />
+            android:src="@drawable/ic_ceo" />
 
         <TextView
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginStart="12dp"
             android:layout_weight="1"
-            android:text="Donation"
+            android:text="@string/CEO"
             android:textColor="@android:color/white"
             android:textSize="16sp" />
 
@@ -168,7 +167,7 @@
         android:onClick="onLogoutClicked"
         android:orientation="horizontal"
         android:padding="12dp"
-        app:layout_constraintTop_toBottomOf="@id/linearLayout2"
+        app:layout_constraintTop_toBottomOf="@id/ceo"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent">
 

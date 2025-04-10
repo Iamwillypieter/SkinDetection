@@ -6,6 +6,7 @@ import android.os.Bundle
 import android.view.View
 import android.widget.Toast
 import com.bumptech.glide.Glide
+import com.example.skindetection.ceo.CeoActivity
 import com.example.skindetection.databinding.ActivityProfileBinding
 import com.example.skindetection.home.HomeActivity
 import com.example.skindetection.user.LoginActivity
@@ -41,6 +42,11 @@ class ProfileActivity : AppCompatActivity() {
         // Tombol Edit Profil
         binding.buttonEditProfile.setOnClickListener {
             val intent = Intent(this, EditActivity::class.java)
+            startActivity(intent)
+        }
+
+        binding.ceo.setOnClickListener {
+            val intent = Intent(this, CeoActivity::class.java)
             startActivity(intent)
         }
     }
