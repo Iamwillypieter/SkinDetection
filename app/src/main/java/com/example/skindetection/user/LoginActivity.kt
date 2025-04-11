@@ -1,5 +1,6 @@
 package com.example.skindetection.user
 
+import android.content.Context
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
@@ -10,6 +11,7 @@ import android.widget.Toast
 import com.example.skindetection.R
 import com.example.skindetection.databinding.ActivityLoginBinding
 import com.example.skindetection.home.HomeActivity
+import com.example.skindetection.utils.SessionManager
 import com.google.firebase.auth.FirebaseAuth
 
 class LoginActivity : AppCompatActivity() {
@@ -23,6 +25,12 @@ class LoginActivity : AppCompatActivity() {
         setContentView(binding.root)
 
         auth = FirebaseAuth.getInstance()
+
+        //Login Session
+        val sharedPref = getSharedPreferences("AppPrefs", Context.MODE_PRIVATE)
+        val editor = sharedPref.edit()
+        editor.putLong("lastLoginTime", System.currentTimeMillis())
+        editor.apply()
 
         binding.tvToRegister.setOnClickListener {
             val intent = Intent(this, RegisterActivity::class.java)
@@ -71,6 +79,7 @@ class LoginActivity : AppCompatActivity() {
         auth.signInWithEmailAndPassword(email, password)
             .addOnCompleteListener(this){
                 if (it.isSuccessful){
+                    SessionManager.saveLoginTime(this)
                     Toast.makeText(this, "$email Selamat Datang", Toast.LENGTH_SHORT).show()
                     val intent = Intent(this, HomeActivity::class.java)
                     startActivity(intent)

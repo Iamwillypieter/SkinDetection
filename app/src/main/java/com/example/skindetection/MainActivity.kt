@@ -7,6 +7,7 @@ import com.example.skindetection.databinding.ActivityMainBinding
 import com.example.skindetection.home.HomeActivity
 import com.example.skindetection.user.LoginActivity
 import com.example.skindetection.user.RegisterActivity
+import com.example.skindetection.utils.SessionManager
 
 class MainActivity : AppCompatActivity() {
     private lateinit var binding: ActivityMainBinding
@@ -16,22 +17,23 @@ class MainActivity : AppCompatActivity() {
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
-        // Set OnClickListener untuk tombol Register
+        // Cek session login
+        if (SessionManager.isSessionValid(this)) {
+            startActivity(Intent(this, HomeActivity::class.java))
+            finish()
+            return
+        } else {
+            SessionManager.clearSession()
+        }
+
+        // Tombol Register
         binding.btnRegister.setOnClickListener {
-            // Pindah ke RegisterActivity
-            val intent = Intent(this, RegisterActivity::class.java)
-            startActivity(intent)
+            startActivity(Intent(this, RegisterActivity::class.java))
         }
 
-        // Set OnClickListener untuk tombol Login
+        // Tombol Login
         binding.btnLogin.setOnClickListener {
-            // Pindah ke LoginActivity
-            val intent = Intent(this, LoginActivity::class.java)
-            startActivity(intent)
+            startActivity(Intent(this, LoginActivity::class.java))
         }
-
-//        val intent = Intent(this, HomeActivity::class.java)
-//        startActivity(intent)
-//        finish()
     }
 }

@@ -1,5 +1,6 @@
 package com.example.skindetection.home
 
+import android.content.Context
 import android.content.Intent
 import android.os.Bundle
 import android.widget.Toast
@@ -116,4 +117,13 @@ class HomeActivity : AppCompatActivity() {
         intent.putExtra("IMAGE", article.imageResId)
         startActivity(intent)
     }
+
+    override fun onResume() {
+        super.onResume()
+        val sharedPref = getSharedPreferences("AppPrefs", Context.MODE_PRIVATE)
+        val editor = sharedPref.edit()
+        editor.putLong("lastLoginTime", System.currentTimeMillis())
+        editor.apply()
+    }
+
 }
