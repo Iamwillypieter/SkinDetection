@@ -7,6 +7,7 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.os.Environment
 import android.provider.MediaStore
+import android.view.View
 import android.widget.Toast
 import androidx.core.content.FileProvider
 import com.example.skindetection.databinding.ActivityCameraBinding
@@ -49,12 +50,21 @@ class CameraActivity : AppCompatActivity() {
             openCamera()
         }
 
-        // Tombol untuk memproses gambar (pindah ke HomeActivity)
+        // Tombol untuk memproses gambar
         binding.btnProcess.setOnClickListener {
             if (!selectedImagePath.isNullOrEmpty()) {
-                val intent = Intent(this, HomeActivity::class.java)
-                intent.putExtra("image_path", selectedImagePath)
-                startActivity(intent)
+                // Logika deteksi gambar (ganti dengan logika Anda)
+                val detectionResult = "Deteksi: Kulit Sehat" // Contoh hasil deteksi
+
+                // Menampilkan hasil di TextView
+                binding.tvDetectionResult.text = detectionResult // Set teks hasil deteksi
+                binding.tvDetectionResult.visibility = View.VISIBLE // Menampilkan TextView
+
+                // Jika Anda juga ingin mengirim hasil ke HomeActivity
+                 val intent = Intent(this, HomeActivity::class.java)
+                 intent.putExtra("image_path", selectedImagePath)
+                 intent.putExtra("detection_result", detectionResult) // Kirim hasil
+                 startActivity(intent)
             } else {
                 Toast.makeText(this, "Silakan pilih atau ambil gambar terlebih dahulu", Toast.LENGTH_SHORT).show()
             }
@@ -94,13 +104,13 @@ class CameraActivity : AppCompatActivity() {
                     val selectedImageUri: Uri? = data?.data
                     selectedImageUri?.let {
                         binding.previewImageView.setImageURI(it)
-                        selectedImagePath = it.toString() // Simpan path galeri
+                        selectedImagePath = it.toString()
                     }
                 }
                 REQUEST_CAMERA -> {
                     imageUri?.let {
                         binding.previewImageView.setImageURI(it)
-                        selectedImagePath = it.toString()//simpan Uri ke dalam string
+                        selectedImagePath = it.toString()
                     }
                 }
             }
