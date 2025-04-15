@@ -18,10 +18,10 @@
         android:theme="@style/Theme.SkinDetection"
         tools:targetApi="31">
         <activity
-            android:name=".ceo.CeoActivity"
+            android:name=".camera.ResultActivity"
             android:exported="false" />
         <activity
-            android:name=".CeoActivity"
+            android:name=".ceo.CeoActivity"
             android:exported="false" />
         <activity
             android:name=".article.ArticleActivity"

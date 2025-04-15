@@ -100,7 +100,7 @@ class CameraActivity : AppCompatActivity() {
                 REQUEST_CAMERA -> {
                     imageUri?.let {
                         binding.previewImageView.setImageURI(it)
-                        selectedImagePath = imageFile?.absolutePath // Simpan path kamera
+                        selectedImagePath = it.toString()//simpan Uri ke dalam string
                     }
                 }
             }
