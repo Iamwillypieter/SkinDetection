@@ -18,6 +18,9 @@
         android:theme="@style/Theme.SkinDetection"
         tools:targetApi="31">
         <activity
+            android:name=".home.ViewResultActivity"
+            android:exported="false" />
+        <activity
             android:name=".camera.ResultActivity"
             android:exported="false" />
         <activity

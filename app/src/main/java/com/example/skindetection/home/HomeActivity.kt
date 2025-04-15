@@ -66,11 +66,13 @@ class HomeActivity : AppCompatActivity() {
 
         // Ambil image path terbaru dari intent
         val imagePath = intent.getStringExtra("image_path")
+        val detectionResult = intent.getStringExtra("detection_result") ?: "No Result" // Ambil dari intent atau gunakan default
+
         if (!imagePath.isNullOrEmpty()) {
-            saveImagePath(this, imagePath)
+            saveImagePath(this, imagePath, detectionResult) // Tambahkan detectionResult
         }
 
-    // Tampilkan gambar-gambar hasil scan sebelumnya
+        // Tampilkan gambar-gambar hasil scan sebelumnya
         loadSavedImages(this, binding.scanCardContainer)
     }
 

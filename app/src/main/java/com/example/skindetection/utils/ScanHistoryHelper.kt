@@ -1,6 +1,7 @@
 package com.example.skindetection.utils
 
 import android.content.Context
+import android.content.Intent
 import android.graphics.Bitmap
 import android.graphics.BitmapFactory
 import android.net.Uri
@@ -11,13 +12,17 @@ import android.widget.LinearLayout
 import androidx.cardview.widget.CardView
 import androidx.core.content.ContextCompat
 import com.example.skindetection.R
+import com.example.skindetection.home.ViewResultActivity
 import java.io.File
 
-fun saveImagePath(context: Context, path: String) {
+fun saveImagePath(context: Context, path: String, detectionResult: String) {
     val prefs = context.getSharedPreferences("scan_history", Context.MODE_PRIVATE)
     val paths = prefs.getStringSet("image_paths", mutableSetOf())?.toMutableSet() ?: mutableSetOf()
     paths.add(path)
     prefs.edit().putStringSet("image_paths", paths).apply()
+
+    // Save detection result
+    prefs.edit().putString("detection_$path", detectionResult).apply()
 }
 
 fun getSavedImagePaths(context: Context): Set<String> {
@@ -39,7 +44,7 @@ fun loadSavedImages(context: Context, container: LinearLayout) {
             }
 
             bitmap?.let {
-                addCardToYourScans(context, container, it)
+                addCardToYourScans(context, container, it, path)
             }
         } catch (e: Exception) {
             e.printStackTrace()
@@ -47,7 +52,7 @@ fun loadSavedImages(context: Context, container: LinearLayout) {
     }
 }
 
-private fun addCardToYourScans(context: Context, container: LinearLayout, bitmap: Bitmap) {
+private fun addCardToYourScans(context: Context, container: LinearLayout, bitmap: Bitmap, path: String) {
     val cardView = CardView(context).apply {
         layoutParams = LinearLayout.LayoutParams(160.dpToPx(), LinearLayout.LayoutParams.WRAP_CONTENT).apply {
             marginEnd = 12.dpToPx()
@@ -71,6 +76,13 @@ private fun addCardToYourScans(context: Context, container: LinearLayout, bitmap
         text = "View Result"
         setTextColor(android.graphics.Color.WHITE)
         backgroundTintList = ContextCompat.getColorStateList(context, R.color.colorPrimary)
+
+        setOnClickListener {
+            val intent = Intent(context, ViewResultActivity::class.java)
+            intent.putExtra("image_path", path)
+            intent.putExtra("detection_result", context.getSharedPreferences("scan_history", Context.MODE_PRIVATE).getString("detection_$path", ""))
+            context.startActivity(intent)
+        }
     }
 
     val layout = LinearLayout(context).apply {
