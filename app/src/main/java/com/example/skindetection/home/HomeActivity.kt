@@ -62,7 +62,7 @@ class HomeActivity : AppCompatActivity() {
         // Inisialisasi RecyclerView Artikel
         setupArticleRecyclerView()
 
-        setupDoctorRecyclerView()
+//        setupDoctorRecyclerView()
 
         // Ambil image path terbaru dari intent
         val imagePath = intent.getStringExtra("image_path")
@@ -111,11 +111,11 @@ class HomeActivity : AppCompatActivity() {
         startActivity(intent)
     }
 
-    private fun setupDoctorRecyclerView() {
-        val adapter = DoctorAdapter(dummyDoctors)
-        binding.recyclerViewDoctors.layoutManager = GridLayoutManager(this, 2)
-        binding.recyclerViewDoctors.adapter = adapter
-    }
+//    private fun setupDoctorRecyclerView() {
+//        val adapter = DoctorAdapter(dummyDoctors)
+//        binding.recyclerViewDoctors.layoutManager = GridLayoutManager(this, 2)
+//        binding.recyclerViewDoctors.adapter = adapter
+//    }
 
     override fun onResume() {
         super.onResume()

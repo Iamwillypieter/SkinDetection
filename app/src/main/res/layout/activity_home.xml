@@ -92,15 +92,15 @@
                 android:clipToPadding="false"
                 android:nestedScrollingEnabled="false"/>
 
-            <!-- Doctor -->
-            <TextView
-                android:id="@+id/textFamousDoctors"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="30dp"
-                android:text="@string/doctor"
-                android:textSize="20sp"
-                android:textStyle="bold" />
+<!--            &lt;!&ndash; Doctor &ndash;&gt;-->
+<!--            <TextView-->
+<!--                android:id="@+id/textFamousDoctors"-->
+<!--                android:layout_width="wrap_content"-->
+<!--                android:layout_height="wrap_content"-->
+<!--                android:layout_marginTop="30dp"-->
+<!--                android:text="@string/doctor"-->
+<!--                android:textSize="20sp"-->
+<!--                android:textStyle="bold" />-->
 
             <androidx.recyclerview.widget.RecyclerView
                 android:id="@+id/recyclerViewDoctors"
